@@ -19,7 +19,20 @@ repositories {
 }
 
 dependencies {
+    // REST API support
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //Database integration
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    //Input validation support
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Reduces boilerplate code (getters, setters, constructors)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Testing dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
