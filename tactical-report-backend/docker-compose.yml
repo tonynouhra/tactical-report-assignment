@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: tactical-report-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: tactical-report
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - tactical-report-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  # Spring Boot Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tactical-report-api
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      # MongoDB connection
+      MONGODB_URI: mongodb://mongodb:27017/tactical-report
+      MONGODB_DATABASE: tactical-report
+
+      # Server configuration
+      SERVER_PORT: 8080
+
+      # Spring profiles
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    networks:
+      - tactical-report-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 60s
+
+networks:
+  tactical-report-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local

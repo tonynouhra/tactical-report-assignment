@@ -1,0 +1,54 @@
+# Build output
+build/
+target/
+*.jar
+*.war
+!gradle/wrapper/gradle-wrapper.jar
+
+# Gradle
+.gradle/
+gradle-app.setting
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Test output
+*.log
+logs/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+Jenkinsfile
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
