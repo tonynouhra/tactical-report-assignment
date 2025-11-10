@@ -7,6 +7,8 @@ import com.tacticalreport.tacticalreportbackend.model.ItemStatus;
 import com.tacticalreport.tacticalreportbackend.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -74,15 +76,20 @@ public class ItemService {
     }
 
     /**
-     * Get all items
+     * Get all items with pagination
      *
-     * @return List of all items
+     * @param pageable Pagination information (page number, size, sort)
+     * @return Page of items with pagination metadata
      */
-    public List<Item> getAllItems() {
-        log.debug("Fetching all items");
-        List<Item> items = itemRepository.findAll();
-        log.info("Found {} items", items.size());
-        return items;
+    public Page<Item> getAllItems(Pageable pageable) {
+        log.debug("Fetching items with pagination: page={}, size={}",
+                  pageable.getPageNumber(), pageable.getPageSize());
+        Page<Item> itemsPage = itemRepository.findAll(pageable);
+        log.info("Found {} items on page {} of {}",
+                 itemsPage.getNumberOfElements(),
+                 itemsPage.getNumber() + 1,
+                 itemsPage.getTotalPages());
+        return itemsPage;
     }
 
     /**

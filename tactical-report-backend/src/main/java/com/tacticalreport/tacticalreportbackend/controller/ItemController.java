@@ -6,6 +6,10 @@ import com.tacticalreport.tacticalreportbackend.service.ItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,56 +44,77 @@ public class ItemController {
     }
 
     /**
-     * Get all items
+     * Get all items with pagination support
      * GET /api/items
      *
-     * @return 200 OK with list of all items
+     * @param name Filter by name (optional)
+     * @param category Filter by category (optional)
+     * @param status Filter by status (optional)
+     * @param minPrice Filter by minimum price (optional)
+     * @param maxPrice Filter by maximum price (optional)
+     * @param sortBy Sort order (optional): price-asc, price-desc, name-asc, name-desc, newest
+     * @param sku Search by SKU (optional)
+     * @param page Page number (0-indexed, default: 0)
+     * @param size Page size (default: 20)
+     * @return 200 OK with paginated list of items
      */
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems(
+    public ResponseEntity<?> getAllItems(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) ItemStatus status,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) String sortBy,
-            @RequestParam(required = false) String sku
+            @RequestParam(required = false) String sku,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
     ) {
-        log.info("REST request to get items with filters - name: {}, category: {}, status: {}, minPrice: {}, maxPrice: {}, sortBy: {}, sku: {}",
-                name, category, status, minPrice, maxPrice, sortBy, sku);
+        log.info("REST request to get items with filters - name: {}, category: {}, status: {}, minPrice: {}, maxPrice: {}, sortBy: {}, sku: {}, page: {}, size: {}",
+                name, category, status, minPrice, maxPrice, sortBy, sku, page, size);
 
-        List<Item> items;
+        // Create Pageable object
+        Pageable pageable = PageRequest.of(page, size);
 
+        // If filtering/searching, return List (no pagination for filters yet)
         if (sku != null && !sku.isEmpty()) {
             Item item = itemService.getItemBySku(sku);
             return ResponseEntity.ok(List.of(item));
         }
 
         if (name != null && !name.isEmpty()) {
-            items = itemService.searchItemsByName(name);
+            List<Item> items = itemService.searchItemsByName(name);
+            return ResponseEntity.ok(items);
         }
         else if (category != null && !category.isEmpty()) {
-            items = itemService.getItemsByCategory(category);
+            List<Item> items = itemService.getItemsByCategory(category);
+            return ResponseEntity.ok(items);
         }
         else if (status != null) {
-            items = itemService.getItemsByStatus(status);
+            List<Item> items = itemService.getItemsByStatus(status);
+            return ResponseEntity.ok(items);
         }
         else if (minPrice != null && maxPrice != null) {
-            items = itemService.getItemsByPriceRange(minPrice, maxPrice);
+            List<Item> items = itemService.getItemsByPriceRange(minPrice, maxPrice);
+            return ResponseEntity.ok(items);
         }
         else if (sortBy != null) {
-            items = switch (sortBy.toLowerCase()) {
-                case "price-asc" -> itemService.getItemsSortedByPriceAsc();
-                case "price-desc" -> itemService.getItemsSortedByPriceDesc();
-                case "newest" -> itemService.getNewestItems();
-                default -> itemService.getAllItems();
+            // Handle sorting with pagination
+            Page<Item> items = switch (sortBy.toLowerCase()) {
+                case "price-asc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("price").ascending()));
+                case "price-desc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("price").descending()));
+                case "name-asc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("name").ascending()));
+                case "name-desc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("name").descending()));
+                case "newest" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("createdAt").descending()));
+                default -> itemService.getAllItems(pageable);
             };
+            return ResponseEntity.ok(items);
         }
         else {
-            items = itemService.getAllItems();
+            // Default: return paginated results
+            Page<Item> items = itemService.getAllItems(pageable);
+            return ResponseEntity.ok(items);
         }
-
-        return ResponseEntity.ok(items);
     }
 
     /**

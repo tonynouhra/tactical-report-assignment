@@ -11,6 +11,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -115,8 +119,8 @@ class ItemControllerTest {
 
 
     @Test
-    @DisplayName("GET /api/items - Should return all items")
-    void shouldReturnAllItems() throws Exception {
+    @DisplayName("GET /api/items - Should return paginated items with default pagination")
+    void shouldReturnPaginatedItems() throws Exception {
         Item item2 = new Item();
         item2.setId("test-id-456");
         item2.setName("Test Mouse");
@@ -124,13 +128,36 @@ class ItemControllerTest {
         item2.setQuantity(50);
 
         List<Item> items = Arrays.asList(testItem, item2);
-        when(itemService.getAllItems()).thenReturn(items);
+        Page<Item> itemsPage = new PageImpl<>(items, PageRequest.of(0, 20), 2);
+        when(itemService.getAllItems(any(Pageable.class))).thenReturn(itemsPage);
 
         mockMvc.perform(get("/api/items"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name").value("Test Laptop"))
-                .andExpect(jsonPath("$[1].name").value("Test Mouse"));
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.content[0].name").value("Test Laptop"))
+                .andExpect(jsonPath("$.content[1].name").value("Test Mouse"))
+                .andExpect(jsonPath("$.totalElements").value(2))
+                .andExpect(jsonPath("$.totalPages").value(1))
+                .andExpect(jsonPath("$.size").value(20))
+                .andExpect(jsonPath("$.number").value(0));
+    }
+
+    @Test
+    @DisplayName("GET /api/items?page=1&size=10 - Should return paginated items with custom page and size")
+    void shouldReturnPaginatedItemsWithCustomPageSize() throws Exception {
+        List<Item> items = Arrays.asList(testItem);
+        Page<Item> itemsPage = new PageImpl<>(items, PageRequest.of(1, 10), 25);
+        when(itemService.getAllItems(any(Pageable.class))).thenReturn(itemsPage);
+
+        mockMvc.perform(get("/api/items")
+                        .param("page", "1")
+                        .param("size", "10"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.totalElements").value(25))
+                .andExpect(jsonPath("$.totalPages").value(3))
+                .andExpect(jsonPath("$.size").value(10))
+                .andExpect(jsonPath("$.number").value(1));
     }
 
     @Test
@@ -257,12 +284,14 @@ class ItemControllerTest {
         cheapItem.setPrice(new BigDecimal("29.99"));
         cheapItem.setQuantity(10);
 
-        when(itemService.getItemsSortedByPriceAsc()).thenReturn(Arrays.asList(cheapItem, testItem));
+        List<Item> items = Arrays.asList(cheapItem, testItem);
+        Page<Item> itemsPage = new PageImpl<>(items, PageRequest.of(0, 20), 2);
+        when(itemService.getAllItems(any(Pageable.class))).thenReturn(itemsPage);
 
         mockMvc.perform(get("/api/items").param("sortBy", "price-asc"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].price").value(29.99))
-                .andExpect(jsonPath("$[1].price").value(999.99));
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.content[0].price").value(29.99))
+                .andExpect(jsonPath("$.content[1].price").value(999.99));
     }
 }

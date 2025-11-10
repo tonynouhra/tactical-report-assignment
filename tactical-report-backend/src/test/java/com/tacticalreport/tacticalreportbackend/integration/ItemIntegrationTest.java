@@ -152,7 +152,7 @@ class ItemIntegrationTest {
 
     @Test
     @Order(4)
-    @DisplayName("GET /api/items - Should return all items from database")
+    @DisplayName("GET /api/items - Should return paginated items from database")
     void shouldGetAllItems() {
         // Given - Save multiple items
         Item item1 = itemRepository.save(testItem);
@@ -166,15 +166,22 @@ class ItemIntegrationTest {
         itemRepository.save(item2);
 
         // When
-        ResponseEntity<Item[]> response = restTemplate.getForEntity(
+        ResponseEntity<Map> response = restTemplate.getForEntity(
                 baseUrl,
-                Item[].class
+                Map.class
         );
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).hasSize(2);
+        assertThat(response.getBody()).containsKey("content");
+        assertThat(response.getBody()).containsKey("totalElements");
+        assertThat(response.getBody()).containsKey("totalPages");
+        assertThat(response.getBody().get("totalElements")).isEqualTo(2);
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> content = (List<Map<String, Object>>) response.getBody().get("content");
+        assertThat(content).hasSize(2);
     }
 
     @Test

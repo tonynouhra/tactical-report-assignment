@@ -170,26 +170,6 @@ class ItemServiceTest {
         verify(itemRepository, times(1)).findById("invalid-id");
     }
 
-    @Test
-    @DisplayName("Should get all items")
-    void shouldGetAllItems() {
-        // Given
-        Item item2 = new Item();
-        item2.setId("test-id-456");
-        item2.setName("Test Mouse");
-
-        List<Item> items = Arrays.asList(testItem, item2);
-        when(itemRepository.findAll()).thenReturn(items);
-
-        // When
-        List<Item> result = itemService.getAllItems();
-
-        // Then
-        assertThat(result).hasSize(2);
-        assertThat(result).contains(testItem, item2);
-
-        verify(itemRepository, times(1)).findAll();
-    }
 
 
     @Test

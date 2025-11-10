@@ -67,7 +67,7 @@
 					"response": []
 				},
 				{
-					"name": "Get All Items",
+					"name": "Get All Items (Paginated)",
 					"event": [
 						{
 							"listen": "test",
@@ -77,9 +77,13 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response is an array\", function () {",
+									"pm.test(\"Response has pagination data\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData).to.be.an('array');",
+									"    pm.expect(jsonData).to.have.property('content');",
+									"    pm.expect(jsonData).to.have.property('totalElements');",
+									"    pm.expect(jsonData).to.have.property('totalPages');",
+									"    pm.expect(jsonData).to.have.property('size');",
+									"    pm.expect(jsonData).to.have.property('number');",
 									"});"
 								],
 								"type": "text/javascript"
@@ -99,7 +103,57 @@
 								"items"
 							]
 						},
-						"description": "Retrieves all items from the inventory"
+						"description": "Retrieves all items with default pagination (page=0, size=20)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Items - Page 1 Size 10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Page size is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.size).to.equal(10);",
+									"    pm.expect(jsonData.number).to.equal(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?page=1&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (0-indexed)"
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "Items per page"
+								}
+							]
+						},
+						"description": "Get second page with 10 items per page"
 					},
 					"response": []
 				},
