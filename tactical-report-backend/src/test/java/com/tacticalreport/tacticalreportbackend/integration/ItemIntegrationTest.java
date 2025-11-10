@@ -42,6 +42,7 @@ class ItemIntegrationTest {
 
     private String baseUrl;
     private Item testItem;
+    private static final String SAMPLE_BASE64_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
 
     @BeforeEach
     void setUp() {
@@ -58,6 +59,7 @@ class ItemIntegrationTest {
         testItem.setQuantity(15);
         testItem.setCategory("Electronics");
         testItem.setSku("INT-TEST-001");
+        testItem.setImage(SAMPLE_BASE64_IMAGE);
         testItem.setStatus(ItemStatus.AVAILABLE);
     }
 

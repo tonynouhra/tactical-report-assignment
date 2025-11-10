@@ -46,6 +46,7 @@ class ItemControllerTest {
     private ItemService itemService;
 
     private Item testItem;
+    private static final String SAMPLE_BASE64_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
 
     @BeforeEach
     void setUp() {
@@ -57,6 +58,7 @@ class ItemControllerTest {
         testItem.setQuantity(10);
         testItem.setCategory("Electronics");
         testItem.setSku("TEST-001");
+        testItem.setImage(SAMPLE_BASE64_IMAGE);
         testItem.setStatus(ItemStatus.AVAILABLE);
     }
 

@@ -1,0 +1,938 @@
+{
+	"info": {
+		"_postman_id": "tactical-report-api-collection",
+		"name": "Tactical Report API",
+		"description": "Complete API collection for Tactical Report Backend - Item Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "tactical-report"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Create Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response has item ID\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.exist;",
+									"    pm.environment.set(\"item_id\", jsonData.id);",
+									"});",
+									"",
+									"pm.test(\"Item has correct properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('name');",
+									"    pm.expect(jsonData).to.have.property('price');",
+									"    pm.expect(jsonData).to.have.property('quantity');",
+									"    pm.expect(jsonData).to.have.property('sku');",
+									"    pm.expect(jsonData).to.have.property('status');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"MacBook Pro 16-inch\",\n  \"description\": \"Apple M3 Max chip with 16-core CPU and 40-core GPU, 48GB RAM, 1TB SSD\",\n  \"price\": 3499.99,\n  \"quantity\": 25,\n  \"category\": \"Electronics\",\n  \"sku\": \"APPLE-MBP16-M3MAX-001\",\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						},
+						"description": "Creates a new item in the inventory"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						},
+						"description": "Retrieves all items from the inventory"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has item details\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.expect(jsonData).to.have.property('name');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items/{{item_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"{{item_id}}"
+							]
+						},
+						"description": "Retrieves a specific item by its ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Item was updated\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"MacBook Pro 16-inch (Updated)\",\n  \"description\": \"Apple M3 Max chip with 16-core CPU and 40-core GPU, 48GB RAM, 2TB SSD\",\n  \"price\": 3999.99,\n  \"quantity\": 20,\n  \"category\": \"Electronics\",\n  \"sku\": \"APPLE-MBP16-M3MAX-001\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items/{{item_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"{{item_id}}"
+							]
+						},
+						"description": "Updates an existing item"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items/{{item_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"{{item_id}}"
+							]
+						},
+						"description": "Deletes an item from the inventory"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD operations for items"
+		},
+		{
+			"name": "Search & Filter",
+			"item": [
+				{
+					"name": "Search by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?name=laptop",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "laptop",
+									"description": "Search items by name (case-insensitive, partial match)"
+								}
+							]
+						},
+						"description": "Search items by name with case-insensitive partial matching"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?category=Electronics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Electronics",
+									"description": "Filter items by category"
+								}
+							]
+						},
+						"description": "Filter items by category"
+					},
+					"response": []
+				},
+				{
+					"name": "Search by SKU",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?sku=APPLE-MBP16-M3MAX-001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "sku",
+									"value": "APPLE-MBP16-M3MAX-001",
+									"description": "Search item by SKU (exact match)"
+								}
+							]
+						},
+						"description": "Search for an item by its SKU"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?status=AVAILABLE",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "AVAILABLE",
+									"description": "Filter by status: AVAILABLE, OUT_OF_STOCK, DISCONTINUED"
+								}
+							]
+						},
+						"description": "Filter items by status (AVAILABLE, OUT_OF_STOCK, DISCONTINUED)"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Price Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?minPrice=1000&maxPrice=5000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "1000",
+									"description": "Minimum price"
+								},
+								{
+									"key": "maxPrice",
+									"value": "5000",
+									"description": "Maximum price"
+								}
+							]
+						},
+						"description": "Filter items by price range"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?status=AVAILABLE&minQuantity=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "AVAILABLE"
+								},
+								{
+									"key": "minQuantity",
+									"value": "1",
+									"description": "Items with quantity greater than 0"
+								}
+							]
+						},
+						"description": "Get all available items with quantity > 0"
+					},
+					"response": []
+				}
+			],
+			"description": "Search and filter operations"
+		},
+		{
+			"name": "Sorting",
+			"item": [
+				{
+					"name": "Sort by Price (Ascending)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?sortBy=price-asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "price-asc",
+									"description": "Sort by price in ascending order"
+								}
+							]
+						},
+						"description": "Get items sorted by price (lowest to highest)"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by Price (Descending)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?sortBy=price-desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "price-desc",
+									"description": "Sort by price in descending order"
+								}
+							]
+						},
+						"description": "Get items sorted by price (highest to lowest)"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by Name (Ascending)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?sortBy=name-asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name-asc",
+									"description": "Sort by name alphabetically (A-Z)"
+								}
+							]
+						},
+						"description": "Get items sorted by name (A-Z)"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by Name (Descending)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items?sortBy=name-desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name-desc",
+									"description": "Sort by name alphabetically (Z-A)"
+								}
+							]
+						},
+						"description": "Get items sorted by name (Z-A)"
+					},
+					"response": []
+				}
+			],
+			"description": "Sorting operations"
+		},
+		{
+			"name": "Error Cases",
+			"item": [
+				{
+					"name": "Create Item - Duplicate SKU (409)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409 Conflict\", function () {",
+									"    pm.response.to.have.status(409);",
+									"});",
+									"",
+									"pm.test(\"Error response contains SKU\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include('SKU');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Duplicate Item\",\n  \"description\": \"This has a duplicate SKU\",\n  \"price\": 999.99,\n  \"quantity\": 10,\n  \"category\": \"Electronics\",\n  \"sku\": \"APPLE-MBP16-M3MAX-001\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						},
+						"description": "Attempt to create an item with a duplicate SKU (should fail with 409)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Item - Invalid Data (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Error response contains validation message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include('Validation');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"description\": \"Invalid item\",\n  \"price\": -100.00,\n  \"quantity\": -5,\n  \"category\": \"Electronics\",\n  \"sku\": \"INVALID\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						},
+						"description": "Attempt to create an item with invalid data (empty name, negative price, negative quantity)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item - Not Found (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Error response has message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items/non-existent-id-12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"non-existent-id-12345"
+							]
+						},
+						"description": "Attempt to get a non-existent item (should return 404)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item - Not Found (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Item\",\n  \"price\": 999.99,\n  \"quantity\": 10,\n  \"sku\": \"TEST-SKU\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items/non-existent-id-12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"non-existent-id-12345"
+							]
+						},
+						"description": "Attempt to update a non-existent item (should return 404)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item - Not Found (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/items/non-existent-id-12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items",
+								"non-existent-id-12345"
+							]
+						},
+						"description": "Attempt to delete a non-existent item (should return 404)"
+					},
+					"response": []
+				}
+			],
+			"description": "Error case testing"
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Actuator Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Check application health status"
+					},
+					"response": []
+				},
+				{
+					"name": "Actuator Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"info"
+							]
+						},
+						"description": "Get application information"
+					},
+					"response": []
+				}
+			],
+			"description": "Health check and monitoring endpoints"
+		},
+		{
+			"name": "Sample Data",
+			"item": [
+				{
+					"name": "Create Laptop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Dell XPS 15\",\n  \"description\": \"15.6 inch 4K display, Intel Core i7, 32GB RAM, 1TB SSD\",\n  \"price\": 2299.99,\n  \"quantity\": 15,\n  \"category\": \"Electronics\",\n  \"sku\": \"DELL-XPS15-2024-001\",\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Mouse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Logitech MX Master 3S\",\n  \"description\": \"Wireless performance mouse with ultra-fast scrolling\",\n  \"price\": 99.99,\n  \"quantity\": 50,\n  \"category\": \"Electronics\",\n  \"sku\": \"LOGI-MX3S-2024-001\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Monitor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"LG UltraWide 34WN80C\",\n  \"description\": \"34-inch curved monitor, 3440x1440 resolution, USB-C\",\n  \"price\": 599.99,\n  \"quantity\": 8,\n  \"category\": \"Electronics\",\n  \"sku\": \"LG-34WN80C-2024-001\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Keyboard",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Keychron K8 Pro\",\n  \"description\": \"Wireless mechanical keyboard, hot-swappable switches\",\n  \"price\": 119.99,\n  \"quantity\": 0,\n  \"category\": \"Electronics\",\n  \"sku\": \"KEYCHRON-K8PRO-001\",\n  \"status\": \"OUT_OF_STOCK\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Clean Code by Robert Martin\",\n  \"description\": \"A Handbook of Agile Software Craftsmanship\",\n  \"price\": 39.99,\n  \"quantity\": 30,\n  \"category\": \"Books\",\n  \"sku\": \"BOOK-CLEANCODE-001\",\n  \"status\": \"AVAILABLE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"items"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sample data to populate the database"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "item_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -117,7 +117,7 @@ public class ItemService {
         existingItem.setQuantity(itemDetails.getQuantity());
         existingItem.setCategory(itemDetails.getCategory());
         existingItem.setSku(itemDetails.getSku());
-        existingItem.setImageUrl(itemDetails.getImageUrl());
+        existingItem.setImage(itemDetails.getImage());
 
         if (itemDetails.getQuantity() != null) {
             if (itemDetails.getQuantity() == 0) {

@@ -47,8 +47,8 @@ public class Item {
     @Size(max = 50, message = "SKU cannot exceed 50 characters")
     private String sku;
 
-    @Size(max = 500, message = "Image URL cannot exceed 500 characters")
-    private String imageUrl;
+    @Size(max = 10485760, message = "Image data cannot exceed 10MB (base64 encoded)")
+    private String image;  
 
     private ItemStatus status = ItemStatus.AVAILABLE;
 
