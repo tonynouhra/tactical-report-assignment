@@ -37,14 +37,6 @@ export default function TopNavbar() {
               <FiFilter size={20} />
             </button>
 
-            {/* Add Item Button */}
-            <Link
-              href="/items/add"
-              className="flex items-center space-x-2 px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
-              <FiPlus size={20} />
-              <span>Add Item</span>
-            </Link>
           </div>
 
           {/* Desktop: User Menu */}

@@ -6,11 +6,12 @@ import { usePathname } from 'next/navigation';
 import { FiHome, FiPlus, FiClock, FiBarChart2, FiX, FiMenu, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import LogoutButton from '@/components/auth/LogoutButton';
+import { useSidebarContext } from './MainLayout';
 
 export default function LeftSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, setIsCollapsed } = useSidebarContext();
 
   const navItems = [
     { href: '/', icon: FiHome, label: 'Home' },

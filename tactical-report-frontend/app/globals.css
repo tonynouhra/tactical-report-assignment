@@ -1,6 +1,17 @@
 @import "tailwindcss";
 @import "sweetalert2/dist/sweetalert2.min.css";
 
+/* Main content offset for sidebar */
+@media (min-width: 1024px) {
+  .main-content-expanded {
+    margin-left: 288px !important;
+  }
+
+  .main-content-collapsed {
+    margin-left: 80px !important;
+  }
+}
+
 /* ==========================================
    CSS CUSTOM PROPERTIES (CSS Variables)
    ========================================== */
