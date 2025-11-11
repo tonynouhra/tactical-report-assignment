@@ -144,17 +144,19 @@ public class ItemService {
 
     /**
      * Delete an item by ID
+     * This operation is idempotent - deleting a non-existent item will not throw an error
      *
      * @param id The item ID to delete
-     * @throws ItemNotFoundException if item not found
      */
     public void deleteItem(String id) {
         log.info("Deleting item with ID: {}", id);
 
-        getItemById(id);
-
-        itemRepository.deleteById(id);
-        log.info("Item deleted successfully: {}", id);
+        if (itemRepository.existsById(id)) {
+            itemRepository.deleteById(id);
+            log.info("Item deleted successfully: {}", id);
+        } else {
+            log.warn("Attempted to delete non-existent item with ID: {}", id);
+        }
     }
 
 
