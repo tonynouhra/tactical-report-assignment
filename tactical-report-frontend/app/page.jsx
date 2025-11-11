@@ -5,16 +5,19 @@ import MainLayout from '@/components/layout/MainLayout';
 import ItemGrid from '@/components/items/ItemGrid';
 import RightDrawer from '@/components/layout/RightDrawer';
 import ItemDetails from '@/components/items/ItemDetails';
+import ItemForm from '@/components/items/ItemForm';
 import { useItems } from '@/lib/hooks/useItems';
 import { useDeleteItem } from '@/lib/hooks/useDeleteItem';
 import { motion } from 'framer-motion';
-import { FiPackage, FiDollarSign, FiLayers, FiAlertCircle } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
   const itemsPerPage = 12;
 
   // Fetch items with pagination
@@ -39,12 +42,24 @@ export default function Home() {
   };
 
   const handleEdit = (item) => {
-    // TODO: Navigate to edit page
-    Swal.fire({
-      title: 'Edit Item',
-      text: `Edit functionality will be implemented next for: ${item.name}`,
-      icon: 'info',
-    });
+    setEditingItem(item);
+    setIsDrawerOpen(false);
+    setIsFormOpen(true);
+  };
+
+  const handleCreate = () => {
+    setEditingItem(null);
+    setIsFormOpen(true);
+  };
+
+  const handleFormSuccess = () => {
+    setIsFormOpen(false);
+    setEditingItem(null);
+  };
+
+  const handleFormCancel = () => {
+    setIsFormOpen(false);
+    setEditingItem(null);
   };
 
   const handleDelete = async (item) => {
@@ -87,8 +102,42 @@ export default function Home() {
   const totalPages = data?.totalPages || 0;
 
   return (
-    <MainLayout>
+    <MainLayout onAddItem={handleCreate}>
       <div style={{ padding: '80px' }}>
+        {/* Header with Create Button */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '30px'
+        }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>
+            Inventory Management
+          </h1>
+          <button
+            onClick={handleCreate}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 24px',
+              backgroundColor: '#2563eb',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s',
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1d4ed8'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#2563eb'}
+          >
+            <FiPlus size={20} />
+            Create New Item
+          </button>
+        </div>
+
         {/* Stats Cards */}
         <div style={{
           display: 'grid',
@@ -160,6 +209,16 @@ export default function Home() {
             onDelete={handleDelete}
           />
         )}
+      </RightDrawer>
+
+      {/* Right Drawer for Create/Edit Form */}
+      <RightDrawer isOpen={isFormOpen} onClose={handleFormCancel}>
+        <ItemForm
+          key={editingItem?.id || 'new'}
+          item={editingItem}
+          onSuccess={handleFormSuccess}
+          onCancel={handleFormCancel}
+        />
       </RightDrawer>
     </MainLayout>
   );

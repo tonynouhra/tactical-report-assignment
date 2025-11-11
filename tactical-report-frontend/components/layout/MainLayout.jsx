@@ -8,15 +8,16 @@ import BottomActivityPanel from './BottomActivityPanel';
 const SidebarContext = createContext({
   isCollapsed: false,
   setIsCollapsed: () => {},
+  onAddItem: null,
 });
 
 export const useSidebarContext = () => useContext(SidebarContext);
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, onAddItem }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <SidebarContext.Provider value={{ isCollapsed, setIsCollapsed }}>
+    <SidebarContext.Provider value={{ isCollapsed, setIsCollapsed, onAddItem }}>
       <div className="min-h-screen bg-gray-50">
         <TopNavbar />
         <LeftSidebar />

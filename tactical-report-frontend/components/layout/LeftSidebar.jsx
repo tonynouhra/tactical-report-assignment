@@ -11,13 +11,21 @@ import { useSidebarContext } from './MainLayout';
 export default function LeftSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const { isCollapsed, setIsCollapsed } = useSidebarContext();
+  const { isCollapsed, setIsCollapsed, onAddItem } = useSidebarContext();
 
   const navItems = [
     { href: '/', icon: FiHome, label: 'Home' },
-    { href: '/items/add', icon: FiPlus, label: 'Add Item' },
+    { href: '/items/add', icon: FiPlus, label: 'Add Item', action: 'addItem' },
     { href: '/activity-log', icon: FiClock, label: 'Activity Log' },
   ];
+
+  const handleNavClick = (item, e) => {
+    if (item.action === 'addItem' && onAddItem) {
+      e.preventDefault();
+      onAddItem();
+      setIsOpen(false);
+    }
+  };
 
   return (
     <>
@@ -57,6 +65,7 @@ export default function LeftSidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={(e) => handleNavClick(item, e)}
                 className={`flex items-center ${isCollapsed ? 'justify-center px-3' : 'space-x-4 px-4'} py-4 rounded-xl transition-all group relative ${
                   isActive
                     ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-200'
@@ -152,7 +161,7 @@ export default function LeftSidebar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => handleNavClick(item, e)}
                       className={`flex items-center space-x-4 px-4 py-4 rounded-xl transition-all group ${
                         isActive
                           ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-200'
