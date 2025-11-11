@@ -296,57 +296,6 @@ class ItemServiceTest {
 
 
     @Test
-    @DisplayName("Should search items by name")
-    void shouldSearchItemsByName() {
-        // Given
-        List<Item> items = Arrays.asList(testItem);
-        when(itemRepository.findByNameContainingIgnoreCase("laptop")).thenReturn(items);
-
-        // When
-        List<Item> result = itemService.searchItemsByName("laptop");
-
-        // Then
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getName()).containsIgnoringCase("laptop");
-
-        verify(itemRepository, times(1)).findByNameContainingIgnoreCase("laptop");
-    }
-
-    @Test
-    @DisplayName("Should get items by category")
-    void shouldGetItemsByCategory() {
-        // Given
-        List<Item> items = Arrays.asList(testItem);
-        when(itemRepository.findByCategory("Electronics")).thenReturn(items);
-
-        // When
-        List<Item> result = itemService.getItemsByCategory("Electronics");
-
-        // Then
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getCategory()).isEqualTo("Electronics");
-
-        verify(itemRepository, times(1)).findByCategory("Electronics");
-    }
-
-    @Test
-    @DisplayName("Should get items by status")
-    void shouldGetItemsByStatus() {
-        // Given
-        List<Item> items = Arrays.asList(testItem);
-        when(itemRepository.findByStatus(ItemStatus.AVAILABLE)).thenReturn(items);
-
-        // When
-        List<Item> result = itemService.getItemsByStatus(ItemStatus.AVAILABLE);
-
-        // Then
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getStatus()).isEqualTo(ItemStatus.AVAILABLE);
-
-        verify(itemRepository, times(1)).findByStatus(ItemStatus.AVAILABLE);
-    }
-
-    @Test
     @DisplayName("Should get item by SKU")
     void shouldGetItemBySku() {
         // Given
@@ -376,23 +325,6 @@ class ItemServiceTest {
         verify(itemRepository, times(1)).findBySku("INVALID-SKU");
     }
 
-    @Test
-    @DisplayName("Should get items by price range")
-    void shouldGetItemsByPriceRange() {
-        // Given
-        BigDecimal minPrice = new BigDecimal("500");
-        BigDecimal maxPrice = new BigDecimal("1500");
-        List<Item> items = Arrays.asList(testItem);
-
-        when(itemRepository.findByPriceBetween(minPrice, maxPrice)).thenReturn(items);
-
-        // When
-        List<Item> result = itemService.getItemsByPriceRange(minPrice, maxPrice);
-
-        // Then
-        assertThat(result).hasSize(1);
-        verify(itemRepository, times(1)).findByPriceBetween(minPrice, maxPrice);
-    }
 
     @Test
     @DisplayName("Should get available items")

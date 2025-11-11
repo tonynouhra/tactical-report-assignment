@@ -53,7 +53,6 @@ public class ItemController {
      * @param status Filter by status (optional)
      * @param minPrice Filter by minimum price (optional)
      * @param maxPrice Filter by maximum price (optional)
-     * @param sortBy Sort order (optional): price-asc, price-desc, name-asc, name-desc, newest
      * @param sku Search by SKU (optional)
      * @param page Page number (0-indexed, default: 0)
      * @param size Page size (default: 20)
@@ -68,13 +67,19 @@ public class ItemController {
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) String sku,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false) String search
     ) {
 
 
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Item> items;
+
+        if(search != null && !search.isEmpty()) {
+            items = itemService.searchAllFields(search, pageable);
+            return ResponseEntity.ok(items);
+        }
 
         if (sku != null && !sku.isEmpty()) {
             Item item = itemService.getItemBySku(sku);

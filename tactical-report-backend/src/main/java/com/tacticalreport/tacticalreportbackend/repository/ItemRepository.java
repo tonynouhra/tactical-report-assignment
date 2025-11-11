@@ -16,23 +16,6 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends MongoRepository<Item, String> {
 
-    /**
-     * Find items by name containing text (case-insensitive)
-     * Query: { "name": { $regex: "laptop", $options: "i" } }
-     */
-    List<Item> findByNameContainingIgnoreCase(String name);
-
-    /**
-     * Find items by category
-     * Query: { "category": "Electronics" }
-     */
-    List<Item> findByCategory(String category);
-
-    /**
-     * Find items by status
-     * Query: { "status": "AVAILABLE" }
-     */
-    List<Item> findByStatus(ItemStatus status);
 
     /**
      * Find items by SKU (Stock Keeping Unit)
@@ -40,12 +23,6 @@ public interface ItemRepository extends MongoRepository<Item, String> {
      */
     Optional<Item> findBySku(String sku);
 
-
-    /**
-     * Find items by price range
-     * Query: { "price": { $gte: 100, $lte: 500 } }
-     */
-    List<Item> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 
 
     /**
@@ -85,5 +62,17 @@ public interface ItemRepository extends MongoRepository<Item, String> {
      * Query: { "price": { $gte: 100, $lte: 500 } }
      */
     Page<Item> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
+
+    /**
+     * Search items across multiple fields with pagination (name OR description OR sku OR category)
+     * Query: { $or: [
+     *   { "name": { $regex: "query", $options: "i" } },
+     *   { "description": { $regex: "query", $options: "i" } },
+     *   { "sku": { $regex: "query", $options: "i" } },
+     *   { "category": { $regex: "query", $options: "i" } }
+     * ]}
+     */
+    Page<Item> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrSkuContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+            String name, String description, String sku, String category, Pageable pageable);
 
 }

@@ -97,6 +97,7 @@ public class ItemService {
                 itemsPage.getTotalPages());
         return itemsPage;
     }
+
     /**
      * Update an existing item
      * Business rules:
@@ -166,39 +167,6 @@ public class ItemService {
 
 
     /**
-     * Search items by name (case-insensitive, partial match)
-     *
-     * @param name Search term
-     * @return List of matching items
-     */
-    public List<Item> searchItemsByName(String name) {
-        log.debug("Searching items by name: {}", name);
-        return itemRepository.findByNameContainingIgnoreCase(name);
-    }
-
-    /**
-     * Get items by category
-     *
-     * @param category The category
-     * @return List of items in category
-     */
-    public List<Item> getItemsByCategory(String category) {
-        log.debug("Fetching items by category: {}", category);
-        return itemRepository.findByCategory(category);
-    }
-
-    /**
-     * Get items by status
-     *
-     * @param status The item status
-     * @return List of items with given status
-     */
-    public List<Item> getItemsByStatus(ItemStatus status) {
-        log.debug("Fetching items by status: {}", status);
-        return itemRepository.findByStatus(status);
-    }
-
-    /**
      * Get item by SKU
      *
      * @param sku The SKU
@@ -215,17 +183,6 @@ public class ItemService {
                 });
     }
 
-    /**
-     * Get items by price range
-     *
-     * @param minPrice Minimum price
-     * @param maxPrice Maximum price
-     * @return List of items in price range
-     */
-    public List<Item> getItemsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
-        log.debug("Fetching items by price range: {} - {}", minPrice, maxPrice);
-        return itemRepository.findByPriceBetween(minPrice, maxPrice);
-    }
 
     /**
      * Get available items (in stock)
@@ -287,4 +244,22 @@ public class ItemService {
         log.debug("Fetching items by price range: {} - {} with pagination", minPrice, maxPrice);
         return itemRepository.findByPriceBetween(minPrice, maxPrice, pageable);
     }
+
+
+    /**
+     * Search across multiple fields (name, description, sku, category) with pagination.
+     *
+     * @param query    Search term
+     * @param pageable Pagination information
+     * @return Page of matching items
+     */
+    public Page<Item> searchAllFields(String query, Pageable pageable) {
+        if (query == null || query.trim().isEmpty()) {
+            return getAllItems(pageable);
+        }
+        String q = query.trim();
+        return itemRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrSkuContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+                q, q, q, q, pageable);
+    }
+
 }

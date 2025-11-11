@@ -242,27 +242,6 @@ class ItemControllerTest {
     }
 
 
-    @Test
-    @DisplayName("GET /api/items?name=laptop - Should search by name")
-    void shouldSearchByName() throws Exception {
-        when(itemService.searchItemsByName("laptop")).thenReturn(Arrays.asList(testItem));
-
-        mockMvc.perform(get("/api/items").param("name", "laptop"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value("Test Laptop"));
-    }
-
-    @Test
-    @DisplayName("GET /api/items?category=Electronics - Should filter by category")
-    void shouldFilterByCategory() throws Exception {
-        when(itemService.getItemsByCategory("Electronics")).thenReturn(Arrays.asList(testItem));
-
-        mockMvc.perform(get("/api/items").param("category", "Electronics"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].category").value("Electronics"));
-    }
 
     @Test
     @DisplayName("GET /api/items?sku=TEST-001 - Should search by SKU")
