@@ -82,16 +82,21 @@ public class ItemService {
      * @return Page of items with pagination metadata
      */
     public Page<Item> getAllItems(Pageable pageable) {
-        log.debug("Fetching items with pagination: page={}, size={}",
-                  pageable.getPageNumber(), pageable.getPageSize());
-        Page<Item> itemsPage = itemRepository.findAll(pageable);
+
+        org.springframework.data.domain.Sort defaultSort =
+                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Order.desc("createdAt"));
+
+        Pageable effectivePageable = pageable.getSort().isUnsorted()
+                ? org.springframework.data.domain.PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), defaultSort)
+                : org.springframework.data.domain.PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), defaultSort.and(pageable.getSort()));
+
+        Page<Item> itemsPage = itemRepository.findAll(effectivePageable);
         log.info("Found {} items on page {} of {}",
-                 itemsPage.getNumberOfElements(),
-                 itemsPage.getNumber() + 1,
-                 itemsPage.getTotalPages());
+                itemsPage.getNumberOfElements(),
+                itemsPage.getNumber() + 1,
+                itemsPage.getTotalPages());
         return itemsPage;
     }
-
     /**
      * Update an existing item
      * Business rules:
