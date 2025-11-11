@@ -98,16 +98,9 @@ export default function LeftSidebar() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold shadow-md">
               A
             </div>
-            <button
-              onClick={() => {
-                // Trigger logout
-                document.querySelector('[data-logout-button]')?.click();
-              }}
-              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-              title="Logout"
-            >
-              <FiX size={20} />
-            </button>
+            <div className="flex justify-center">
+              <LogoutButton variant="icon" className="text-red-600 hover:bg-red-50" />
+            </div>
           </div>
         )}
       </aside>
