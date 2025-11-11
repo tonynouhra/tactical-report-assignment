@@ -22,13 +22,11 @@ export default function MainLayout({ children }) {
         <LeftSidebar />
 
         <main
-          className={`pt-16 pb-20 min-h-screen transition-all duration-300 ${
+          className={`pt-20 pb-20 min-h-screen transition-all duration-300 ${
             isCollapsed ? 'main-content-collapsed' : 'main-content-expanded'
           }`}
         >
-          <div className="container mx-auto px-4 py-6">
-            {children}
-          </div>
+          {children}
         </main>
 
         <BottomActivityPanel />
