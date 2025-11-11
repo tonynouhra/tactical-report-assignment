@@ -77,7 +77,7 @@ export default function TopNavbar() {
               className="flex items-center justify-center space-x-2 px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold"
             >
               <FiPlus size={20} />
-              <span>Add Item</span>
+              <span>Create New Item</span>
             </Link>
 
             <LogoutButton variant="mobile" />

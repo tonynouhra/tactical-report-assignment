@@ -15,7 +15,7 @@ export default function LeftSidebar() {
 
   const navItems = [
     { href: '/', icon: FiHome, label: 'Home' },
-    { href: '/items/add', icon: FiPlus, label: 'Add Item', action: 'addItem' },
+    { href: '/items/add', icon: FiPlus, label: 'Create New Item', action: 'addItem' },
     { href: '/activity-log', icon: FiClock, label: 'Activity Log' },
   ];
 
