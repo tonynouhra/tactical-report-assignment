@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createItem } from '@/lib/api/items';
+import { trackActivity, ActivityType } from '@/lib/utils/activityTracker';
 
 /**
  * Hook to create a new item
@@ -12,8 +13,16 @@ export function useCreateItem() {
 
   return useMutation({
     mutationFn: (itemData) => createItem(itemData),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['items'] });
+
+      // Track activity
+      trackActivity(
+        ActivityType.CREATE,
+        data.id,
+        data.name,
+        { description: 'New item created' }
+      );
     },
     onError: (error) => {
       console.error('Error creating item:', error);

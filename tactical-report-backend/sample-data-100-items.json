@@ -1,0 +1,877 @@
+[
+  {
+    "name": "MacBook Pro 16-inch M3 Max",
+    "description": "Apple M3 Max chip with 16-core CPU and 40-core GPU, 48GB RAM, 1TB SSD",
+    "price": 3499.99,
+    "quantity": 25,
+    "category": "Electronics",
+    "sku": "APPLE-MBP16-M3MAX-001",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Dell XPS 15 9530",
+    "description": "15.6-inch 4K OLED display, Intel Core i7-13700H, 32GB RAM, 1TB SSD",
+    "price": 2299.99,
+    "quantity": 15,
+    "category": "Electronics",
+    "sku": "DELL-XPS15-2024-001",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Logitech MX Master 3S",
+    "description": "Wireless performance mouse with ultra-fast scrolling and MagSpeed wheel",
+    "price": 99.99,
+    "quantity": 150,
+    "category": "Electronics",
+    "sku": "LOGI-MX3S-2024-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Sony WH-1000XM5 Headphones",
+    "description": "Industry-leading noise canceling wireless headphones with 30-hour battery",
+    "price": 399.99,
+    "quantity": 45,
+    "category": "Electronics",
+    "sku": "SONY-WH1000XM5-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung 55\" QLED 4K TV",
+    "description": "55-inch Quantum Dot LED 4K Smart TV with HDR10+",
+    "price": 899.99,
+    "quantity": 20,
+    "category": "Electronics",
+    "sku": "SAMSUNG-QLED55-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "LG UltraWide 34WN80C Monitor",
+    "description": "34-inch curved monitor, 3440x1440 resolution, USB-C connectivity",
+    "price": 599.99,
+    "quantity": 30,
+    "category": "Electronics",
+    "sku": "LG-34WN80C-2024-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Keychron K8 Pro Wireless Keyboard",
+    "description": "Hot-swappable mechanical keyboard with RGB backlight",
+    "price": 119.99,
+    "quantity": 0,
+    "category": "Electronics",
+    "sku": "KEYCHRON-K8PRO-001",
+    "status": "OUT_OF_STOCK"
+  },
+  {
+    "name": "iPhone 15 Pro Max 256GB",
+    "description": "Apple iPhone 15 Pro Max with A17 Pro chip, titanium design",
+    "price": 1199.99,
+    "quantity": 50,
+    "category": "Electronics",
+    "sku": "APPLE-IP15PM-256-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung Galaxy S24 Ultra",
+    "description": "6.8-inch Dynamic AMOLED display, Snapdragon 8 Gen 3, 512GB",
+    "price": 1399.99,
+    "quantity": 35,
+    "category": "Electronics",
+    "sku": "SAMSUNG-S24U-512-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "iPad Pro 12.9\" M2",
+    "description": "12.9-inch Liquid Retina XDR display, M2 chip, 256GB",
+    "price": 1099.99,
+    "quantity": 40,
+    "category": "Electronics",
+    "sku": "APPLE-IPADPRO129-M2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Clean Code by Robert Martin",
+    "description": "A Handbook of Agile Software Craftsmanship - Essential reading for developers",
+    "price": 39.99,
+    "quantity": 100,
+    "category": "Books",
+    "sku": "BOOK-CLEANCODE-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "The Pragmatic Programmer",
+    "description": "Your Journey To Mastery, 20th Anniversary Edition",
+    "price": 44.99,
+    "quantity": 85,
+    "category": "Books",
+    "sku": "BOOK-PRAGPROG-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Designing Data-Intensive Applications",
+    "description": "The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
+    "price": 54.99,
+    "quantity": 60,
+    "category": "Books",
+    "sku": "BOOK-DDIA-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Nike Air Max 270",
+    "description": "Men's running shoes with Air Max cushioning, size 10",
+    "price": 149.99,
+    "quantity": 25,
+    "category": "Footwear",
+    "sku": "NIKE-AIRMAX270-10-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Adidas Ultraboost 22",
+    "description": "Women's running shoes with Boost cushioning, size 8",
+    "price": 189.99,
+    "quantity": 18,
+    "category": "Footwear",
+    "sku": "ADIDAS-UB22-W8-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Herman Miller Aeron Chair",
+    "description": "Ergonomic office chair with lumbar support, size B",
+    "price": 1395.00,
+    "quantity": 12,
+    "category": "Furniture",
+    "sku": "HM-AERON-B-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "IKEA MARKUS Office Chair",
+    "description": "High-back office chair with adjustable lumbar support",
+    "price": 199.99,
+    "quantity": 45,
+    "category": "Furniture",
+    "sku": "IKEA-MARKUS-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Standing Desk Electric Adjustable",
+    "description": "60x30 inch electric height-adjustable standing desk",
+    "price": 449.99,
+    "quantity": 22,
+    "category": "Furniture",
+    "sku": "DESK-STAND-6030-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "description": "Laser detect technology, 60-minute runtime, HEPA filtration",
+    "price": 649.99,
+    "quantity": 28,
+    "category": "Home Appliances",
+    "sku": "DYSON-V15-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Instant Pot Duo 7-in-1",
+    "description": "8-quart multi-use pressure cooker with 13 smart programs",
+    "price": 119.99,
+    "quantity": 75,
+    "category": "Home Appliances",
+    "sku": "INSTANTPOT-DUO8-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "KitchenAid Stand Mixer",
+    "description": "5-quart tilt-head stand mixer with 10 speeds, Empire Red",
+    "price": 379.99,
+    "quantity": 35,
+    "category": "Home Appliances",
+    "sku": "KITCHENAID-MIXER5-RED-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Nespresso Vertuo Next",
+    "description": "Coffee and espresso machine with milk frother",
+    "price": 179.99,
+    "quantity": 50,
+    "category": "Home Appliances",
+    "sku": "NESPRESSO-VERTUONEXT-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Canon EOS R6 Mark II",
+    "description": "24.2MP full-frame mirrorless camera body",
+    "price": 2499.99,
+    "quantity": 8,
+    "category": "Electronics",
+    "sku": "CANON-R6MK2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Sony Alpha A7 IV",
+    "description": "33MP full-frame mirrorless camera with 4K 60p video",
+    "price": 2499.99,
+    "quantity": 10,
+    "category": "Electronics",
+    "sku": "SONY-A7IV-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "DJI Mini 3 Pro Drone",
+    "description": "Lightweight foldable drone with 4K HDR video",
+    "price": 759.99,
+    "quantity": 15,
+    "category": "Electronics",
+    "sku": "DJI-MINI3PRO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "GoPro HERO 12 Black",
+    "description": "Waterproof action camera with 5.3K60 video",
+    "price": 399.99,
+    "quantity": 42,
+    "category": "Electronics",
+    "sku": "GOPRO-HERO12-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Nintendo Switch OLED",
+    "description": "7-inch OLED screen gaming console with enhanced audio",
+    "price": 349.99,
+    "quantity": 65,
+    "category": "Electronics",
+    "sku": "NINTENDO-SWITCHOLED-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "PlayStation 5 Disc Edition",
+    "description": "Ultra-high speed SSD, 4K gaming, 825GB storage",
+    "price": 499.99,
+    "quantity": 20,
+    "category": "Electronics",
+    "sku": "SONY-PS5-DISC-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Xbox Series X",
+    "description": "12 teraflops of processing power, 1TB SSD",
+    "price": 499.99,
+    "quantity": 18,
+    "category": "Electronics",
+    "sku": "MICROSOFT-XBSX-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Fitbit Charge 6",
+    "description": "Fitness tracker with built-in GPS and heart rate monitoring",
+    "price": 159.99,
+    "quantity": 90,
+    "category": "Electronics",
+    "sku": "FITBIT-CHARGE6-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Apple Watch Series 9 45mm",
+    "description": "GPS + Cellular, always-on Retina display, health tracking",
+    "price": 529.99,
+    "quantity": 55,
+    "category": "Electronics",
+    "sku": "APPLE-WATCH9-45-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung Galaxy Watch 6",
+    "description": "44mm smartwatch with advanced health monitoring",
+    "price": 329.99,
+    "quantity": 38,
+    "category": "Electronics",
+    "sku": "SAMSUNG-WATCH6-44-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Bose QuietComfort Earbuds II",
+    "description": "Wireless noise cancelling earbuds with spatial audio",
+    "price": 299.99,
+    "quantity": 72,
+    "category": "Electronics",
+    "sku": "BOSE-QCEB2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "AirPods Pro 2nd Generation",
+    "description": "Active noise cancellation, spatial audio, MagSafe charging",
+    "price": 249.99,
+    "quantity": 120,
+    "category": "Electronics",
+    "sku": "APPLE-AIRPODSPRO2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "The North Face Denali Jacket",
+    "description": "Recycled fleece jacket, men's large",
+    "price": 179.99,
+    "quantity": 30,
+    "category": "Clothing",
+    "sku": "TNF-DENALI-L-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Patagonia Better Sweater",
+    "description": "Quarter-zip fleece pullover, women's medium",
+    "price": 139.99,
+    "quantity": 40,
+    "category": "Clothing",
+    "sku": "PATAGONIA-BS-WM-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Levi's 501 Original Jeans",
+    "description": "Classic straight leg jeans, 32x32, dark wash",
+    "price": 89.99,
+    "quantity": 55,
+    "category": "Clothing",
+    "sku": "LEVIS-501-3232-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Champion Reverse Weave Hoodie",
+    "description": "Heavyweight cotton hoodie, size large, navy",
+    "price": 69.99,
+    "quantity": 85,
+    "category": "Clothing",
+    "sku": "CHAMPION-RW-L-NAVY-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Yeti Rambler 30oz Tumbler",
+    "description": "Vacuum insulated stainless steel tumbler with MagSlider lid",
+    "price": 39.99,
+    "quantity": 200,
+    "category": "Home & Kitchen",
+    "sku": "YETI-RAMBLER30-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Ninja Foodi 8-Quart Cooker",
+    "description": "9-in-1 deluxe XL pressure cooker and air fryer",
+    "price": 249.99,
+    "quantity": 28,
+    "category": "Home Appliances",
+    "sku": "NINJA-FOODI8-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Philips Hue White & Color Starter Kit",
+    "description": "4 smart bulbs with bridge, works with Alexa",
+    "price": 199.99,
+    "quantity": 45,
+    "category": "Smart Home",
+    "sku": "PHILIPS-HUE-STARTER-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Ring Video Doorbell Pro 2",
+    "description": "1536p HD video, 3D motion detection, night vision",
+    "price": 249.99,
+    "quantity": 60,
+    "category": "Smart Home",
+    "sku": "RING-DBPRO2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Amazon Echo Dot 5th Gen",
+    "description": "Smart speaker with Alexa, improved audio",
+    "price": 49.99,
+    "quantity": 150,
+    "category": "Smart Home",
+    "sku": "AMAZON-ECHODOT5-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Google Nest Thermostat",
+    "description": "Smart programmable thermostat with energy savings",
+    "price": 129.99,
+    "quantity": 35,
+    "category": "Smart Home",
+    "sku": "GOOGLE-NEST-THERMO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Asus ROG Strix Gaming Laptop",
+    "description": "15.6\" 165Hz, RTX 4070, AMD Ryzen 9, 32GB RAM, 1TB SSD",
+    "price": 1899.99,
+    "quantity": 12,
+    "category": "Electronics",
+    "sku": "ASUS-ROGSTRIX-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Razer DeathAdder V3 Pro",
+    "description": "Wireless gaming mouse with Focus Pro 30K sensor",
+    "price": 149.99,
+    "quantity": 75,
+    "category": "Electronics",
+    "sku": "RAZER-DAV3PRO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "SteelSeries Arctis Nova Pro Wireless",
+    "description": "Multi-system gaming headset with active noise cancellation",
+    "price": 349.99,
+    "quantity": 22,
+    "category": "Electronics",
+    "sku": "SS-ARCTIS-NOVA-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Corsair K95 RGB Platinum XT",
+    "description": "Mechanical gaming keyboard with Cherry MX switches",
+    "price": 199.99,
+    "quantity": 40,
+    "category": "Electronics",
+    "sku": "CORSAIR-K95-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "BenQ ZOWIE XL2566K Monitor",
+    "description": "24.5\" 360Hz gaming monitor with DyAc+",
+    "price": 549.99,
+    "quantity": 18,
+    "category": "Electronics",
+    "sku": "BENQ-XL2566K-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Anker PowerCore 20000mAh",
+    "description": "High-capacity portable charger with fast charging",
+    "price": 49.99,
+    "quantity": 180,
+    "category": "Electronics",
+    "sku": "ANKER-PC20000-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Kindle Paperwhite Signature Edition",
+    "description": "32GB, 6.8\" display, wireless charging, adjustable warm light",
+    "price": 189.99,
+    "quantity": 95,
+    "category": "Electronics",
+    "sku": "AMAZON-KINDLE-PWSE-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "iPad Air 5th Gen 256GB",
+    "description": "10.9\" Liquid Retina display, M1 chip, Wi-Fi",
+    "price": 749.99,
+    "quantity": 48,
+    "category": "Electronics",
+    "sku": "APPLE-IPADAIR5-256-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung Galaxy Tab S9+",
+    "description": "12.4\" Dynamic AMOLED display, Snapdragon 8 Gen 2, 256GB",
+    "price": 999.99,
+    "quantity": 32,
+    "category": "Electronics",
+    "sku": "SAMSUNG-TABS9P-256-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Microsoft Surface Pro 9",
+    "description": "13\" PixelSense display, Intel Core i7, 16GB RAM, 512GB SSD",
+    "price": 1599.99,
+    "quantity": 25,
+    "category": "Electronics",
+    "sku": "MS-SURFACEPRO9-I7-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Wacom Intuos Pro Large",
+    "description": "Professional pen tablet with 8192 levels of pressure",
+    "price": 499.99,
+    "quantity": 15,
+    "category": "Electronics",
+    "sku": "WACOM-INTUOSPROL-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Blue Yeti USB Microphone",
+    "description": "Professional USB microphone for streaming and podcasting",
+    "price": 129.99,
+    "quantity": 88,
+    "category": "Electronics",
+    "sku": "BLUE-YETI-USB-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Elgato Stream Deck Plus",
+    "description": "Live content creation controller with customizable LCD keys",
+    "price": 199.99,
+    "quantity": 42,
+    "category": "Electronics",
+    "sku": "ELGATO-STREAMDECKP-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Logitech C920 HD Pro Webcam",
+    "description": "1080p video calling and recording with auto-focus",
+    "price": 79.99,
+    "quantity": 125,
+    "category": "Electronics",
+    "sku": "LOGI-C920-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "IKEA KALLAX Shelf Unit 4x4",
+    "description": "Square bookcase with 16 compartments, white",
+    "price": 149.99,
+    "quantity": 38,
+    "category": "Furniture",
+    "sku": "IKEA-KALLAX-4X4-WHITE-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Floyd Leg Set",
+    "description": "Table legs that turn any surface into a table, steel",
+    "price": 229.99,
+    "quantity": 52,
+    "category": "Furniture",
+    "sku": "FLOYD-LEGS-STEEL-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Uplift V2 Standing Desk",
+    "description": "Bamboo desktop, 60x30\", electric height adjustment",
+    "price": 699.99,
+    "quantity": 18,
+    "category": "Furniture",
+    "sku": "UPLIFT-V2-6030-BAMBOO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Secretlab Titan Evo 2022",
+    "description": "Premium gaming chair with NEO hybrid leatherette",
+    "price": 549.99,
+    "quantity": 28,
+    "category": "Furniture",
+    "sku": "SECRETLAB-TITANEVO22-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "West Elm Mid-Century Bookshelf",
+    "description": "5-shelf bookcase with solid wood legs, walnut",
+    "price": 599.99,
+    "quantity": 12,
+    "category": "Furniture",
+    "sku": "WESTELM-MCBOOKSHELF-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Casper Original Mattress Queen",
+    "description": "Three layers of premium foam for balanced comfort",
+    "price": 1095.00,
+    "quantity": 15,
+    "category": "Furniture",
+    "sku": "CASPER-MATTRESS-QUEEN-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Purple Harmony Pillow",
+    "description": "Hypoallergenic pillow with GelFlex Grid and Talalay latex",
+    "price": 179.99,
+    "quantity": 65,
+    "category": "Home & Kitchen",
+    "sku": "PURPLE-HARMONY-PILLOW-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Brooklinen Luxe Sheet Set Queen",
+    "description": "480 thread count long-staple cotton sateen, smoke gray",
+    "price": 149.99,
+    "quantity": 42,
+    "category": "Home & Kitchen",
+    "sku": "BROOKLINEN-LUXE-QUEEN-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "All-Clad D3 Stainless 10-Piece Set",
+    "description": "Professional tri-ply stainless steel cookware set",
+    "price": 799.99,
+    "quantity": 20,
+    "category": "Home & Kitchen",
+    "sku": "ALLCLAD-D3-10PC-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Lodge Cast Iron Skillet 12\"",
+    "description": "Pre-seasoned cast iron skillet, ready to use",
+    "price": 39.99,
+    "quantity": 95,
+    "category": "Home & Kitchen",
+    "sku": "LODGE-CI-12-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "OXO Good Grips 20-Piece Set",
+    "description": "Kitchen tools and gadgets starter set",
+    "price": 99.99,
+    "quantity": 72,
+    "category": "Home & Kitchen",
+    "sku": "OXO-GOODGRIPS-20PC-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Vitamix E310 Explorian Blender",
+    "description": "Professional-grade 48oz blender with variable speed",
+    "price": 349.99,
+    "quantity": 35,
+    "category": "Home Appliances",
+    "sku": "VITAMIX-E310-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Breville Barista Express Espresso",
+    "description": "Semi-automatic espresso machine with built-in grinder",
+    "price": 699.99,
+    "quantity": 22,
+    "category": "Home Appliances",
+    "sku": "BREVILLE-BE-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "KitchenAid Artisan Toaster 4-Slice",
+    "description": "High-lift lever toaster with bagel function, candy apple red",
+    "price": 129.99,
+    "quantity": 48,
+    "category": "Home Appliances",
+    "sku": "KITCHENAID-TOASTER4-RED-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Cuisinart Food Processor 14-Cup",
+    "description": "Extra-large feed tube, stainless steel blades",
+    "price": 199.99,
+    "quantity": 38,
+    "category": "Home Appliances",
+    "sku": "CUISINART-FP14-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Anova Precision Cooker Nano",
+    "description": "Sous vide immersion circulator with Bluetooth",
+    "price": 99.99,
+    "quantity": 55,
+    "category": "Home Appliances",
+    "sku": "ANOVA-NANO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "iRobot Roomba j7+",
+    "description": "Self-emptying robot vacuum with obstacle avoidance",
+    "price": 799.99,
+    "quantity": 28,
+    "category": "Home Appliances",
+    "sku": "IROBOT-ROOMBAJ7P-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Shark AI Ultra 2-in-1",
+    "description": "Robot vacuum and mop with self-empty base",
+    "price": 549.99,
+    "quantity": 32,
+    "category": "Home Appliances",
+    "sku": "SHARK-AIULTRA-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Levoit Air Purifier Core 400S",
+    "description": "Smart true HEPA air purifier for large rooms",
+    "price": 219.99,
+    "quantity": 45,
+    "category": "Home Appliances",
+    "sku": "LEVOIT-CORE400S-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Molekule Air Pro",
+    "description": "PECO air purifier destroys pollutants at molecular level",
+    "price": 1099.99,
+    "quantity": 12,
+    "category": "Home Appliances",
+    "sku": "MOLEKULE-AIRPRO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Nest Cam Outdoor",
+    "description": "Weatherproof security camera with 24/7 live video",
+    "price": 179.99,
+    "quantity": 58,
+    "category": "Smart Home",
+    "sku": "GOOGLE-NEST-OUTDOOR-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "August Smart Lock Pro",
+    "description": "WiFi-enabled smart lock with DoorSense",
+    "price": 249.99,
+    "quantity": 42,
+    "category": "Smart Home",
+    "sku": "AUGUST-LOCKPRO-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Ecobee SmartThermostat Premium",
+    "description": "Thermostat with voice control and air quality monitor",
+    "price": 249.99,
+    "quantity": 35,
+    "category": "Smart Home",
+    "sku": "ECOBEE-PREMIUM-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Lutron Caseta Dimmer Kit",
+    "description": "Wireless smart lighting starter kit with 2 dimmers",
+    "price": 129.99,
+    "quantity": 52,
+    "category": "Smart Home",
+    "sku": "LUTRON-CASETA-KIT-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung SmartThings Hub v3",
+    "description": "Smart home hub connecting all your devices",
+    "price": 69.99,
+    "quantity": 75,
+    "category": "Smart Home",
+    "sku": "SAMSUNG-ST-HUB3-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Sonos Arc Soundbar",
+    "description": "Premium smart soundbar with Dolby Atmos",
+    "price": 899.99,
+    "quantity": 25,
+    "category": "Electronics",
+    "sku": "SONOS-ARC-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Roku Ultra Streaming Device",
+    "description": "4K/HDR streaming with voice remote and lost remote finder",
+    "price": 99.99,
+    "quantity": 110,
+    "category": "Electronics",
+    "sku": "ROKU-ULTRA-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Apple TV 4K 128GB",
+    "description": "3rd generation with A15 Bionic chip and HDR10+",
+    "price": 149.99,
+    "quantity": 68,
+    "category": "Electronics",
+    "sku": "APPLE-TV4K-128-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Fire TV Stick 4K Max",
+    "description": "Streaming stick with Alexa voice remote and WiFi 6",
+    "price": 54.99,
+    "quantity": 185,
+    "category": "Electronics",
+    "sku": "AMAZON-FIRETV4KMAX-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Seagate Backup Plus 5TB",
+    "description": "Portable external hard drive with USB 3.0",
+    "price": 129.99,
+    "quantity": 95,
+    "category": "Electronics",
+    "sku": "SEAGATE-BP-5TB-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Samsung T7 Portable SSD 2TB",
+    "description": "External solid state drive with up to 1050MB/s speed",
+    "price": 199.99,
+    "quantity": 72,
+    "category": "Electronics",
+    "sku": "SAMSUNG-T7-2TB-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "SanDisk Extreme Pro 256GB",
+    "description": "SD card with 200MB/s read, 140MB/s write speeds",
+    "price": 59.99,
+    "quantity": 145,
+    "category": "Electronics",
+    "sku": "SANDISK-EXTREME-256-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "TP-Link Archer AX6000 Router",
+    "description": "WiFi 6 router with 8 gigabit LAN ports",
+    "price": 299.99,
+    "quantity": 42,
+    "category": "Electronics",
+    "sku": "TPLINK-AX6000-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Netgear Nighthawk Cable Modem",
+    "description": "DOCSIS 3.1 cable modem for Xfinity, Spectrum, Cox",
+    "price": 169.99,
+    "quantity": 58,
+    "category": "Electronics",
+    "sku": "NETGEAR-NH-CM1200-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Hydro Flask 32oz Water Bottle",
+    "description": "Vacuum insulated stainless steel, keeps cold 24 hours",
+    "price": 44.95,
+    "quantity": 180,
+    "category": "Sports & Outdoors",
+    "sku": "HYDROFLASK-32-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Patagonia Black Hole Duffel 55L",
+    "description": "Weather-resistant duffel bag made from recycled materials",
+    "price": 149.99,
+    "quantity": 38,
+    "category": "Sports & Outdoors",
+    "sku": "PATAGONIA-BH-55L-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Osprey Atmos AG 65 Backpack",
+    "description": "Ventilated backpacking pack with Anti-Gravity suspension",
+    "price": 279.99,
+    "quantity": 22,
+    "category": "Sports & Outdoors",
+    "sku": "OSPREY-ATMOS65-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "REI Co-op Half Dome SL 2+ Tent",
+    "description": "Lightweight 3-season backpacking tent for 2 people",
+    "price": 329.99,
+    "quantity": 18,
+    "category": "Sports & Outdoors",
+    "sku": "REI-HALFDOMSL2-001",
+    "status": "AVAILABLE"
+  },
+  {
+    "name": "Therm-a-Rest NeoAir XLite Pad",
+    "description": "Ultralight inflatable sleeping pad, R-value 4.2",
+    "price": 199.95,
+    "quantity": 32,
+    "category": "Sports & Outdoors",
+    "sku": "THERMAREST-NEOXLITE-001",
+    "status": "AVAILABLE"
+  }
+]

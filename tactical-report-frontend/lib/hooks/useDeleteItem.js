@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteItem } from '@/lib/api/items';
+import { trackActivity, ActivityType } from '@/lib/utils/activityTracker';
 
 /**
  * Hook to delete an item
@@ -11,12 +12,20 @@ export function useDeleteItem() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (itemId) => deleteItem(itemId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['items'] });// refresh data
+    mutationFn: ({ id, name }) => deleteItem(id),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['items'] });
+
+      // Track activity
+      trackActivity(
+        ActivityType.DELETE,
+        variables.id,
+        variables.name,
+        { description: 'Item deleted from inventory' }
+      );
     },
-      onError: (error) => {
-        console.error('Error deleting item:', error);
+    onError: (error) => {
+      console.error('Error deleting item:', error);
     },
   });
 }

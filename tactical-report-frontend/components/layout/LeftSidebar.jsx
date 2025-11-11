@@ -11,18 +11,22 @@ import { useSidebarContext } from './MainLayout';
 export default function LeftSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const { isCollapsed, setIsCollapsed, onAddItem } = useSidebarContext();
+  const { isCollapsed, setIsCollapsed, onAddItem, setIsActivityDrawerOpen } = useSidebarContext();
 
   const navItems = [
     { href: '/', icon: FiHome, label: 'Home' },
     { href: '/items/add', icon: FiPlus, label: 'Create New Item', action: 'addItem' },
-    { href: '/activity-log', icon: FiClock, label: 'Activity Log' },
+    { href: '#', icon: FiClock, label: 'Activity Log', action: 'activityLog' },
   ];
 
   const handleNavClick = (item, e) => {
     if (item.action === 'addItem' && onAddItem) {
       e.preventDefault();
       onAddItem();
+      setIsOpen(false);
+    } else if (item.action === 'activityLog') {
+      e.preventDefault();
+      setIsActivityDrawerOpen(true);
       setIsOpen(false);
     }
   };
