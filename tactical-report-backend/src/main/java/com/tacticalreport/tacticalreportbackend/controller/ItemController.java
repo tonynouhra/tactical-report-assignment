@@ -48,14 +48,14 @@ public class ItemController {
      * Get all items with pagination support
      * GET /api/items
      *
-     * @param name Filter by name (optional)
+     * @param name     Filter by name (optional)
      * @param category Filter by category (optional)
-     * @param status Filter by status (optional)
+     * @param status   Filter by status (optional)
      * @param minPrice Filter by minimum price (optional)
      * @param maxPrice Filter by maximum price (optional)
-     * @param sku Search by SKU (optional)
-     * @param page Page number (0-indexed, default: 0)
-     * @param size Page size (default: 20)
+     * @param sku      Search by SKU (optional)
+     * @param page     Page number (0-indexed, default: 0)
+     * @param size     Page size (default: 20)
      * @return 200 OK with paginated list of items
      */
     @GetMapping
@@ -65,10 +65,13 @@ public class ItemController {
             @RequestParam(required = false) ItemStatus status,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) Integer minQuantity,
+            @RequestParam(required = false) Integer maxQuantity,
             @RequestParam(required = false) String sku,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String search
+
     ) {
 
 
@@ -76,7 +79,7 @@ public class ItemController {
 
         Page<Item> items;
 
-        if(search != null && !search.isEmpty()) {
+        if (search != null && !search.isEmpty()) {
             items = itemService.searchAllFields(search, pageable);
             return ResponseEntity.ok(items);
         }
@@ -90,8 +93,25 @@ public class ItemController {
             items = itemService.getItemsByCategory(category, pageable);
         } else if (status != null) {
             items = itemService.getItemsByStatus(status, pageable);
+
         } else if (minPrice != null && maxPrice != null) {
             items = itemService.getItemsByPriceRange(minPrice, maxPrice, pageable);
+        } else if (minPrice != null) {
+            items = itemService.getItemsByPriceGreaterThanEqual(minPrice, pageable);
+        } else if (maxPrice != null) {
+            items = itemService.getItemsByPriceLessThanEqual(maxPrice, pageable);
+
+        } else if (maxQuantity != null && minQuantity != null) {
+            items = itemService.getItemsByQuantityRange(minQuantity, maxQuantity, pageable);
+
+        } else if (maxQuantity != null) {
+            items = itemService.getItemsByQuantityLessThanEqual(maxQuantity, pageable);
+
+
+        } else if (minQuantity != null) {
+            items = itemService.findByQuantityGreaterThanEqual(minQuantity, pageable);
+
+
         } else {
             items = itemService.getAllItems(pageable);
         }

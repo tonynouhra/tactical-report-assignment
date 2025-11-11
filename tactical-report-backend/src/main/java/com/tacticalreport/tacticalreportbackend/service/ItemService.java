@@ -246,6 +246,35 @@ public class ItemService {
     }
 
 
+
+    public Page<Item> getItemsByQuantityLessThanEqual(Integer quantityIsLessThan, Pageable pageable) {
+        return itemRepository.findByQuantityLessThanEqual(quantityIsLessThan, pageable);
+    }
+
+    public Page<Item> findByQuantityGreaterThanEqual(Integer quantityIsGreaterThan, Pageable pageable) {
+        return itemRepository.findByQuantityGreaterThanEqual(quantityIsGreaterThan, pageable);
+    }
+
+    public Page<Item> getItemsByQuantityRange(Integer minQuantity, Integer maxQuantity, Pageable pageable) {
+        return itemRepository.findByQuantityBetween(minQuantity, maxQuantity, pageable);
+    }
+
+    public Page<Item> findByPriceBetween(BigDecimal priceIsLessThan, Pageable pageable) {
+        return itemRepository.findByPriceBetween(priceIsLessThan, pageable);
+    }
+
+    public Page<Item> getItemsByPriceGreaterThanEqual(BigDecimal priceIsGreaterThan, Pageable pageable) {
+        return itemRepository.findByPriceGreaterThanEqual(priceIsGreaterThan, pageable);
+    }
+
+    public Page<Item> getItemsByPriceLessThanEqual(BigDecimal priceIsGreaterThan, Pageable pageable) {
+        return itemRepository.findByPriceLessThanEqual(priceIsGreaterThan,  pageable);
+    }
+
+
+
+
+
     /**
      * Search across multiple fields (name, description, sku, category) with pagination.
      *

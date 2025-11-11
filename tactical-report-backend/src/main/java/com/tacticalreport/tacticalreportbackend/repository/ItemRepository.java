@@ -5,7 +5,6 @@ import com.tacticalreport.tacticalreportbackend.model.ItemStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -62,6 +61,17 @@ public interface ItemRepository extends MongoRepository<Item, String> {
      * Query: { "price": { $gte: 100, $lte: 500 } }
      */
     Page<Item> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
+
+
+    Page<Item> findByQuantityLessThanEqual(Integer quantityIsLessThan, Pageable pageable);
+
+    Page<Item>findByQuantityBetween(Integer minPrice, Integer maxPrice, Pageable pageable);
+    Page<Item> findByQuantityGreaterThanEqual(Integer quantityIsGreaterThan, Pageable pageable);
+
+
+    Page<Item> findByPriceLessThanEqual(BigDecimal priceIsLessThan, Pageable pageable);
+    Page<Item> findByPriceGreaterThanEqual(BigDecimal priceIsGreaterThan, Pageable pageable);
+    Page<Item> findByPriceBetween(BigDecimal priceIsBetween, Pageable pageable);
 
     /**
      * Search items across multiple fields with pagination (name OR description OR sku OR category)
