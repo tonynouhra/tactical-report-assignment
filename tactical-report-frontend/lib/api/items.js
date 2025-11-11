@@ -1,13 +1,35 @@
 import { apiClient } from './client';
 
 /**
- * Get all items with pagination
+ * Build query string from filters object
+ * @param {object} filters - Filter parameters
+ * @returns {string} Query string
+ */
+const buildQueryString = (filters) => {
+  const params = new URLSearchParams();
+
+  Object.keys(filters).forEach(key => {
+    if (filters[key] !== '' && filters[key] !== null && filters[key] !== undefined) {
+      params.append(key, filters[key]);
+    }
+  });
+
+  return params.toString();
+};
+
+/**
+ * Get all items with pagination and filters
  * @param {number} page - Page number (0-indexed)
  * @param {number} size - Items per page
+ * @param {object} filters - Filter parameters (search, category, status, minPrice, maxPrice, minQuantity, maxQuantity)
  * @returns {Promise} Paginated items response
  */
-export const getAllItems = (page = 0, size = 12) => {
-  return apiClient(`/items?page=${page}&size=${size}`);
+export const getAllItems = (page = 0, size = 12, filters = {}) => {
+  const baseParams = `page=${page}&size=${size}`;
+  const filterParams = buildQueryString(filters);
+  const queryString = filterParams ? `${baseParams}&${filterParams}` : baseParams;
+
+  return apiClient(`/items?${queryString}`);
 };
 
 /**

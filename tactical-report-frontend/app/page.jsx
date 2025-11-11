@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import ItemGrid from '@/components/items/ItemGrid';
+import SearchFilter from '@/components/items/SearchFilter';
 import RightDrawer from '@/components/layout/RightDrawer';
 import ItemDetails from '@/components/items/ItemDetails';
 import ItemForm from '@/components/items/ItemForm';
@@ -18,10 +19,12 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [filters, setFilters] = useState({});
   const itemsPerPage = 12;
 
-  // Fetch items with pagination
-  const { data, isLoading, error } = useItems(currentPage, itemsPerPage);
+  // Fetch items with pagination and filters
+  const { data, isLoading, error } = useItems(currentPage, itemsPerPage, filters);
+  console.log('Fetched Items Data:', data);
 
   // Delete item mutation
   const { mutate: deleteItemMutation } = useDeleteItem();
@@ -96,6 +99,16 @@ export default function Home() {
     }
   };
 
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(0); // Reset to first page when filters change
+  };
+
+  const handleResetFilters = () => {
+    setFilters({});
+    setCurrentPage(0);
+  };
+
   // Calculate stats from current page data
   const totalItems = data?.totalElements || 0;
   const currentPageItems = data?.content || [];
@@ -112,7 +125,7 @@ export default function Home() {
           marginBottom: '30px'
         }}>
           <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>
-            Inventory Management
+            Item Tracker Management
           </h1>
           <button
             onClick={handleCreate}
@@ -137,6 +150,13 @@ export default function Home() {
             Create New Item
           </button>
         </div>
+
+        {/* Search and Filter */}
+        <SearchFilter
+          onFilterChange={handleFilterChange}
+          onReset={handleResetFilters}
+        />
+          <br />
 
         {/* Stats Cards */}
         <div style={{
