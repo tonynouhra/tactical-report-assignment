@@ -3,6 +3,7 @@
 import {useRouter} from 'next/navigation';
 import {FiLogOut} from 'react-icons/fi';
 import {logout} from '@/lib/utils/auth';
+import Swal from 'sweetalert2';
 
 function LogoutButton({variant = 'icon', className = ''}) {
     const router = useRouter();
@@ -54,11 +55,25 @@ function LogoutButton({variant = 'icon', className = ''}) {
     }
 
 
+    if (variant === 'menu') {
+        return (
+            <button
+                onClick={handleLogout}
+                className={`flex items-center justify-center space-x-3 w-full px-4 py-3 text-left text-red-600 
+                hover:bg-red-50 rounded-xl transition font-medium ${className}`}
+            >
+                <FiLogOut size={20}/>
+                <span>Logout</span>
+            </button>
+        );
+    }
+
     if (variant === 'mobile') {
         return (
             <button
                 onClick={handleLogout}
-                className={`flex items-center justify-center space-x-2 w-full px-4 py-2 bg-blue-500 bg-opacity-50 text-white rounded-lg hover:bg-opacity-70 transition ${className}`}
+                className={`flex items-center justify-center space-x-2 w-full px-4 py-2 bg-blue-500 bg-opacity-50 
+                text-white rounded-lg hover:bg-opacity-70 transition ${className}`}
             >
                 <FiLogOut size={20}/>
                 <span>Logout</span>

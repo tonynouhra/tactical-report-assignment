@@ -2,18 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FiSearch, FiFilter, FiPlus, FiMenu, FiX, FiLogOut } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
-import { logout } from '@/lib/utils/auth';
+import { FiSearch, FiFilter, FiPlus, FiMenu, FiX } from 'react-icons/fi';
+import LogoutButton from '@/components/auth/LogoutButton';
 
 export default function TopNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const router = useRouter();
-
-  const handleLogout = () => {
-    logout();
-    router.push('/login');
-  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
@@ -21,10 +14,10 @@ export default function TopNavbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-              <span className="text-xl font-bold">TR</span>
+              <div className="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                  <span className="text-xl font-bold text-blue-500">IT</span>
             </div>
-            <span className="text-xl font-semibold hidden sm:block">Tactical Report</span>
+            <span className="text-xl font-semibold hidden sm:block">ITem Tracker</span>
           </div>
 
           {/* Desktop: Search & Actions */}
@@ -62,13 +55,7 @@ export default function TopNavbar() {
               </div>
               <span className="font-medium">Admin</span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="p-2 rounded-lg hover:bg-blue-500 hover:bg-opacity-50 transition"
-              title="Logout"
-            >
-              <FiLogOut size={20} />
-            </button>
+            <LogoutButton variant="icon" />
           </div>
 
           {/* Mobile: Hamburger Menu */}
@@ -102,13 +89,7 @@ export default function TopNavbar() {
               <span>Add Item</span>
             </Link>
 
-            <button
-              onClick={handleLogout}
-              className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-blue-500 bg-opacity-50 rounded-lg"
-            >
-              <FiLogOut size={20} />
-              <span>Logout</span>
-            </button>
+            <LogoutButton variant="mobile" />
           </div>
         )}
       </div>
