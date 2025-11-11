@@ -60,62 +60,38 @@ public class ItemController {
      * @return 200 OK with paginated list of items
      */
     @GetMapping
-    public ResponseEntity<?> getAllItems(
+    public ResponseEntity<Page<Item>> getAllItems(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) ItemStatus status,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
-            @RequestParam(required = false) String sortBy,
             @RequestParam(required = false) String sku,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size
     ) {
-        log.info("REST request to get items with filters - name: {}, category: {}, status: {}, minPrice: {}, maxPrice: {}, sortBy: {}, sku: {}, page: {}, size: {}",
-                name, category, status, minPrice, maxPrice, sortBy, sku, page, size);
 
-        // Create Pageable object
+
         Pageable pageable = PageRequest.of(page, size);
 
-        // If filtering/searching, return List (no pagination for filters yet)
+        Page<Item> items;
+
         if (sku != null && !sku.isEmpty()) {
             Item item = itemService.getItemBySku(sku);
-            return ResponseEntity.ok(List.of(item));
+            items = new org.springframework.data.domain.PageImpl<>(List.of(item), pageable, 1);
+        } else if (name != null && !name.isEmpty()) {
+            items = itemService.searchItemsByName(name, pageable);
+        } else if (category != null && !category.isEmpty()) {
+            items = itemService.getItemsByCategory(category, pageable);
+        } else if (status != null) {
+            items = itemService.getItemsByStatus(status, pageable);
+        } else if (minPrice != null && maxPrice != null) {
+            items = itemService.getItemsByPriceRange(minPrice, maxPrice, pageable);
+        } else {
+            items = itemService.getAllItems(pageable);
         }
 
-        if (name != null && !name.isEmpty()) {
-            List<Item> items = itemService.searchItemsByName(name);
-            return ResponseEntity.ok(items);
-        }
-        else if (category != null && !category.isEmpty()) {
-            List<Item> items = itemService.getItemsByCategory(category);
-            return ResponseEntity.ok(items);
-        }
-        else if (status != null) {
-            List<Item> items = itemService.getItemsByStatus(status);
-            return ResponseEntity.ok(items);
-        }
-        else if (minPrice != null && maxPrice != null) {
-            List<Item> items = itemService.getItemsByPriceRange(minPrice, maxPrice);
-            return ResponseEntity.ok(items);
-        }
-        else if (sortBy != null) {
-            // Handle sorting with pagination
-            Page<Item> items = switch (sortBy.toLowerCase()) {
-                case "price-asc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("price").ascending()));
-                case "price-desc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("price").descending()));
-                case "name-asc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("name").ascending()));
-                case "name-desc" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("name").descending()));
-                case "newest" -> itemService.getAllItems(PageRequest.of(page, size, Sort.by("createdAt").descending()));
-                default -> itemService.getAllItems(pageable);
-            };
-            return ResponseEntity.ok(items);
-        }
-        else {
-            // Default: return paginated results
-            Page<Item> items = itemService.getAllItems(pageable);
-            return ResponseEntity.ok(items);
-        }
+        return ResponseEntity.ok(items);
     }
 
     /**

@@ -240,43 +240,51 @@ public class ItemService {
 
 
     /**
-     * Get items sorted by price (ascending)
+     * Search items by name with pagination (case-insensitive, partial match)
      *
-     * @return List of items sorted by price (cheapest first)
+     * @param name     Search term
+     * @param pageable Pagination information
+     * @return Page of matching items
      */
-    public List<Item> getItemsSortedByPriceAsc() {
-        log.debug("Fetching items sorted by price (ascending)");
-        return itemRepository.findAllByOrderByPriceAsc();
+    public Page<Item> searchItemsByName(String name, Pageable pageable) {
+        log.debug("Searching items by name: {} with pagination", name);
+        return itemRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 
     /**
-     * Get items sorted by price (descending)
+     * Get items by category with pagination
      *
-     * @return List of items sorted by price (most expensive first)
+     * @param category The category
+     * @param pageable Pagination information
+     * @return Page of items in category
      */
-    public List<Item> getItemsSortedByPriceDesc() {
-        log.debug("Fetching items sorted by price (descending)");
-        return itemRepository.findAllByOrderByPriceDesc();
+    public Page<Item> getItemsByCategory(String category, Pageable pageable) {
+        log.debug("Fetching items by category: {} with pagination", category);
+        return itemRepository.findByCategory(category, pageable);
     }
 
     /**
-     * Get newest items
+     * Get items by status with pagination
      *
-     * @return List of items sorted by creation date (newest first)
+     * @param status   The item status
+     * @param pageable Pagination information
+     * @return Page of items with given status
      */
-    public List<Item> getNewestItems() {
-        log.debug("Fetching newest items");
-        return itemRepository.findAllByOrderByCreatedAtDesc();
+    public Page<Item> getItemsByStatus(ItemStatus status, Pageable pageable) {
+        log.debug("Fetching items by status: {} with pagination", status);
+        return itemRepository.findByStatus(status, pageable);
     }
 
     /**
-     * Get items by multiple categories
+     * Get items by price range with pagination
      *
-     * @param categories List of categories
-     * @return List of items in any of the categories
+     * @param minPrice Minimum price
+     * @param maxPrice Maximum price
+     * @param pageable Pagination information
+     * @return Page of items in price range
      */
-    public List<Item> getItemsByCategories(List<String> categories) {
-        log.debug("Fetching items by categories: {}", categories);
-        return itemRepository.findByCategories(categories);
+    public Page<Item> getItemsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
+        log.debug("Fetching items by price range: {} - {} with pagination", minPrice, maxPrice);
+        return itemRepository.findByPriceBetween(minPrice, maxPrice, pageable);
     }
 }
