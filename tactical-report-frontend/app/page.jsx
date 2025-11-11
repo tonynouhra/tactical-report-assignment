@@ -3,16 +3,25 @@
 import { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import ItemGrid from '@/components/items/ItemGrid';
+import RightDrawer from '@/components/layout/RightDrawer';
+import ItemDetails from '@/components/items/ItemDetails';
 import { useItems } from '@/lib/hooks/useItems';
+import { useDeleteItem } from '@/lib/hooks/useDeleteItem';
 import { motion } from 'framer-motion';
 import { FiPackage, FiDollarSign, FiLayers, FiAlertCircle } from 'react-icons/fi';
+import Swal from 'sweetalert2';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const itemsPerPage = 12;
 
   // Fetch items with pagination
   const { data, isLoading, error } = useItems(currentPage, itemsPerPage);
+
+  // Delete item mutation
+  const { mutate: deleteItemMutation } = useDeleteItem();
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -20,8 +29,56 @@ export default function Home() {
   };
 
   const handleItemClick = (item) => {
-    console.log('Item clicked:', item);
-    // TODO: Open right drawer with item details
+    setSelectedItemId(item.id);
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    setTimeout(() => setSelectedItemId(null), 300); // Clear after animation
+  };
+
+  const handleEdit = (item) => {
+    // TODO: Navigate to edit page
+    Swal.fire({
+      title: 'Edit Item',
+      text: `Edit functionality will be implemented next for: ${item.name}`,
+      icon: 'info',
+    });
+  };
+
+  const handleDelete = async (item) => {
+    const result = await Swal.fire({
+      title: 'Delete Item?',
+      text: `Are you sure you want to delete "${item.name}"? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'Cancel',
+    });
+    if (result.isConfirmed) {
+      deleteItemMutation(item.id, {
+        onSuccess: (response) => {
+          Swal.fire({
+            title: 'Deleted!',
+            text: response?.message || `"${item.name}" has been successfully deleted.`,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          handleCloseDrawer();
+        },
+        onError: (error) => {
+          Swal.fire({
+            title: 'Error',
+            text: error.message || 'Failed to delete item. Please try again.',
+            icon: 'error',
+          });
+        },
+      });
+    }
   };
 
   // Calculate stats from current page data
@@ -93,6 +150,17 @@ export default function Home() {
           />
         </motion.div>
       </div>
+
+      {/* Right Drawer for Item Details */}
+      <RightDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
+        {selectedItemId && (
+          <ItemDetails
+            itemId={selectedItemId}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        )}
+      </RightDrawer>
     </MainLayout>
   );
 }

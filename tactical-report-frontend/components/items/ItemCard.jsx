@@ -37,10 +37,12 @@ export default function ItemCard({ item, onClick }) {
       {/* Image */}
       <div className="relative h-48 bg-gray-100 overflow-hidden">
         {item.image ? (
-          <img
+          <Image
             src={item.image}
             alt={item.name}
             className="w-full h-full object-cover"
+            height={300}
+            width={400}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -94,10 +96,7 @@ export default function ItemCard({ item, onClick }) {
           )}
         </div>
 
-        {/* View Details Button */}
-        <button className="mt-4 w-full py-2 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm">
-          View Details
-        </button>
+
       </div>
     </motion.div>
   );

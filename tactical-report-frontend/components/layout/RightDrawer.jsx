@@ -44,7 +44,7 @@ export default function RightDrawer({ isOpen, onClose, children }) {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition z-10"
+              className="absolute top-4 right-4 p-2 rounded-full text-red-500 hover:bg-gray-100 transition z-10"
             >
               <FiX size={24} />
             </button>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST Controller for Item management
@@ -157,10 +158,14 @@ public class ItemController {
      * @return 204 No Content, or 404 Not Found
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable String id) {
+    public ResponseEntity<Map<String, String>> deleteItem(@PathVariable String id) {
         log.info("REST request to delete item with ID: {}", id);
         itemService.deleteItem(id);
-        return ResponseEntity.noContent().build();
+        Map<String, String> body = Map.of(
+                "message", "Item deleted successfully",
+                "id", id
+        );
+        return ResponseEntity.ok(body);
     }
 
     /**
