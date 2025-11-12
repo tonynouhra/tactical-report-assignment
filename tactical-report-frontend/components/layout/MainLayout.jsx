@@ -3,7 +3,6 @@
 import { useState, createContext, useContext } from 'react';
 import TopNavbar from './TopNavbar';
 import LeftSidebar from './LeftSidebar';
-import BottomActivityPanel from './BottomActivityPanel';
 import ActivityDrawer from './ActivityDrawer';
 
 const SidebarContext = createContext({
@@ -40,7 +39,6 @@ export default function MainLayout({ children, onAddItem }) {
           {children}
         </main>
 
-        <BottomActivityPanel />
         <ActivityDrawer
           isOpen={isActivityDrawerOpen}
           onClose={() => setIsActivityDrawerOpen(false)}
