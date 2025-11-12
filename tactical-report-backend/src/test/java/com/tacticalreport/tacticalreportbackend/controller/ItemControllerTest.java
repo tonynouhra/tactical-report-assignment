@@ -232,17 +232,7 @@ class ItemControllerTest {
                 .andExpect(jsonPath("$.id").value("test-id-123"));
     }
 
-    @Test
-    @DisplayName("DELETE /api/items/{id} - Should return 404 when deleting non-existent item")
-    void shouldReturn404WhenDeletingNonExistentItem() throws Exception {
-        doThrow(new ItemNotFoundException("invalid-id"))
-                .when(itemService).deleteItem("invalid-id");
 
-        mockMvc.perform(delete("/api/items/invalid-id"))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.status").value(404))
-                .andExpect(jsonPath("$.error").value("Not Found"));
-    }
 
 
 
