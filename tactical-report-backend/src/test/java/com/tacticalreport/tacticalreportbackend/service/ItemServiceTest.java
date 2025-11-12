@@ -269,14 +269,14 @@ class ItemServiceTest {
     @DisplayName("Should delete item successfully")
     void shouldDeleteItemSuccessfully() {
         // Given
-        when(itemRepository.findById("test-id-123")).thenReturn(Optional.of(testItem));
+        when(itemRepository.existsById("test-id-123")).thenReturn(true);
         doNothing().when(itemRepository).deleteById("test-id-123");
 
         // When
         itemService.deleteItem("test-id-123");
 
         // Then
-        verify(itemRepository, times(1)).findById("test-id-123");
+        verify(itemRepository, times(1)).existsById("test-id-123");
         verify(itemRepository, times(1)).deleteById("test-id-123");
     }
 
@@ -284,7 +284,7 @@ class ItemServiceTest {
     @DisplayName("Should throw exception when deleting non-existent item")
     void shouldThrowExceptionWhenDeletingNonExistentItem() {
         // Given
-        when(itemRepository.findById("invalid-id")).thenReturn(Optional.empty());
+        when(itemRepository.existsById("invalid-id")).thenReturn(false);
 
         // When & Then
         assertThatThrownBy(() -> itemService.deleteItem("invalid-id"))

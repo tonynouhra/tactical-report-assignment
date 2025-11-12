@@ -26,8 +26,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -225,8 +224,12 @@ class ItemControllerTest {
     @Test
     @DisplayName("DELETE /api/items/{id} - Should delete item successfully")
     void shouldDeleteItemSuccessfully() throws Exception {
+        doNothing().when(itemService).deleteItem("test-id-123");
+
         mockMvc.perform(delete("/api/items/test-id-123"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Item deleted successfully"))
+                .andExpect(jsonPath("$.id").value("test-id-123"));
     }
 
     @Test
@@ -250,8 +253,8 @@ class ItemControllerTest {
 
         mockMvc.perform(get("/api/items").param("sku", "TEST-001"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].sku").value("TEST-001"));
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].sku").value("TEST-001"));
     }
 
     @Test

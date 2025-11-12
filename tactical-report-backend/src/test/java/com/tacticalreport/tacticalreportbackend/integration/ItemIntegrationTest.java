@@ -307,15 +307,18 @@ class ItemIntegrationTest {
         assertThat(itemRepository.findById(itemId)).isPresent();
 
         // When
-        ResponseEntity<Void> response = restTemplate.exchange(
+        ResponseEntity<Map> response = restTemplate.exchange(
                 baseUrl + "/" + itemId,
                 HttpMethod.DELETE,
                 null,
-                Void.class
+                Map.class
         );
 
         // Then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("message")).isEqualTo("Item deleted successfully");
+        assertThat(response.getBody().get("id")).isEqualTo(itemId);
 
         // Verify item is deleted from database
         assertThat(itemRepository.findById(itemId)).isEmpty();
@@ -354,16 +357,18 @@ class ItemIntegrationTest {
         itemRepository.save(mouse);
 
         // When
-        ResponseEntity<Item[]> response = restTemplate.getForEntity(
+        ResponseEntity<Map> response = restTemplate.getForEntity(
                 baseUrl + "?name=laptop",
-                Item[].class
+                Map.class
         );
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody()[0].getName()).containsIgnoringCase("laptop");
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> content = (List<Map<String, Object>>) response.getBody().get("content");
+        assertThat(content).hasSize(1);
+        assertThat(content.get(0).get("name").toString()).containsIgnoringCase("laptop");
     }
 
     @Test
@@ -382,16 +387,18 @@ class ItemIntegrationTest {
         itemRepository.save(book);
 
         // When
-        ResponseEntity<Item[]> response = restTemplate.getForEntity(
+        ResponseEntity<Map> response = restTemplate.getForEntity(
                 baseUrl + "?category=Electronics",
-                Item[].class
+                Map.class
         );
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody()[0].getCategory()).isEqualTo("Electronics");
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> content = (List<Map<String, Object>>) response.getBody().get("content");
+        assertThat(content).hasSize(1);
+        assertThat(content.get(0).get("category")).isEqualTo("Electronics");
     }
 
     @Test
@@ -402,16 +409,18 @@ class ItemIntegrationTest {
         itemRepository.save(testItem);
 
         // When
-        ResponseEntity<Item[]> response = restTemplate.getForEntity(
+        ResponseEntity<Map> response = restTemplate.getForEntity(
                 baseUrl + "?sku=INT-TEST-001",
-                Item[].class
+                Map.class
         );
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody()[0].getSku()).isEqualTo("INT-TEST-001");
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> content = (List<Map<String, Object>>) response.getBody().get("content");
+        assertThat(content).hasSize(1);
+        assertThat(content.get(0).get("sku")).isEqualTo("INT-TEST-001");
     }
 
 
@@ -455,13 +464,13 @@ class ItemIntegrationTest {
         assertThat(updateResponse.getBody().getName()).isEqualTo("Updated Laptop Name");
 
         // 4. DELETE
-        ResponseEntity<Void> deleteResponse = restTemplate.exchange(
+        ResponseEntity<Map> deleteResponse = restTemplate.exchange(
                 baseUrl + "/" + itemId,
                 HttpMethod.DELETE,
                 null,
-                Void.class
+                Map.class
         );
-        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         // 5. VERIFY DELETED
         ResponseEntity<Map> verifyResponse = restTemplate.getForEntity(
