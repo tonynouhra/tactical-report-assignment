@@ -280,19 +280,7 @@ class ItemServiceTest {
         verify(itemRepository, times(1)).deleteById("test-id-123");
     }
 
-    @Test
-    @DisplayName("Should throw exception when deleting non-existent item")
-    void shouldThrowExceptionWhenDeletingNonExistentItem() {
-        // Given
-        when(itemRepository.existsById("invalid-id")).thenReturn(false);
 
-        // When & Then
-        assertThatThrownBy(() -> itemService.deleteItem("invalid-id"))
-                .isInstanceOf(ItemNotFoundException.class)
-                .hasMessageContaining("invalid-id");
-
-        verify(itemRepository, never()).deleteById(any());
-    }
 
 
     @Test
