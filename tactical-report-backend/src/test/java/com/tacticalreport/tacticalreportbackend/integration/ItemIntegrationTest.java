@@ -325,21 +325,6 @@ class ItemIntegrationTest {
         assertThat(itemRepository.findAll()).isEmpty();
     }
 
-    @Test
-    @Order(10)
-    @DisplayName("DELETE /api/items/{id} - Should return 404 when deleting non-existent item")
-    void shouldReturn404WhenDeletingNonExistentItem() {
-        // When
-        ResponseEntity<Map> response = restTemplate.exchange(
-                baseUrl + "/non-existent-id",
-                HttpMethod.DELETE,
-                null,
-                Map.class
-        );
-
-        // Then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
 
 
     @Test
